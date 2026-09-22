@@ -3,26 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>টাস্ক ম্যানেজার</title>
-    <!-- CSS ফাইল যুক্ত করা হচ্ছে -->
+    <title>বইঘর - আপনার প্রিয় বইয়ের ঠিকানা</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="container">
-        <h1>আমার কাজের তালিকা</h1>
-        
-        <form id="todo-form">
-            <input type="text" id="todo-input" placeholder="নতুন কাজ লিখুন..." required autocomplete="off">
-            <button type="submit">যোগ করুন</button>
-        </form>
+    <!-- Header / Navbar -->
+    <header class="navbar">
+        <div class="container">
+            <h1 class="logo">বইঘর 📚</h1>
+            <nav>
+                <a href="#hero">হোম</a>
+                <a href="#books">জনপ্রিয় বই</a>
+                <a href="#order" class="btn-nav">অর্ডার করুন</a>
+            </nav>
+        </div>
+    </header>
 
-        <ul id="todo-list">
-            <!-- JavaScript এর মাধ্যমে নতুন কাজগুলো এখানে যোগ হবে -->
-        </ul>
-    </div>
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+        <div class="container">
+            <h2>জ্ঞান চর্চায় সেরা সঙ্গি, আপনার প্রিয় বইগুলো নিয়ে আমরা আছি আপনার পাশে।</h2>
+            <p>আমাদের সংগ্রহ থেকে আপনার পছন্দের বইটি এখনই অর্ডার করুন আর ঘরে বসেই ডেলিভারি নিন!</p>
+            <a href="#order" class="btn">বই অর্ডার করুন</a>
+        </div>
+    </section>
 
-    <!-- JavaScript ফাইল যুক্ত করা হচ্ছে -->
+    <!-- Popular Books Section -->
+    <section id="books" class="books-section">
+        <div class="container">
+            <h2 class="section-title">জনপ্রিয় বইসমূহ</h2>
+            <div class="book-grid">
+                
+                <div class="book-card">
+                    <img src="https://via.placeholder.com/200x280?text=বই+১" alt="বই ১">
+                    <h3>বইয়ের নাম ১</h3>
+                    <p class="author">লেখক: লেখকের নাম</p>
+                    <p class="price">৳ ২৫০</p>
+                    <button class="btn-select" onclick="selectBook('বইয়ের নাম ১')">অর্ডার করুন</button>
+                </div>
+
+                <div class="book-card">
+                    <img src="https://via.placeholder.com/200x280?text=বই+২" alt="বই ২">
+                    <h3>বইয়ের নাম ২</h3>
+                    <p class="author">লেখক: লেখকের নাম</p>
+                    <p class="price">৳ ৩২০</p>
+                    <button class="btn-select" onclick="selectBook('বইয়ের নাম ২')">অর্ডার করুন</button>
+                </div>
+
+                <div class="book-card">
+                    <img src="https://via.placeholder.com/200x280?text=বই+৩" alt="বই ৩">
+                    <h3>বইয়ের নাম ৩</h3>
+                    <p class="author">লেখক: লেখকের নাম</p>
+                    <p class="price">৳ ১৮০</p>
+                    <button class="btn-select" onclick="selectBook('বইয়ের নাম ৩')">অর্ডার করুন</button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Order Form Section (Google Form Integration) -->
+    <section id="order" class="order-section">
+        <div class="container">
+            <h2 class="section-title">অর্ডার ফর্ম</h2>
+            
+            <!-- Google Form Action URL বসান -->
+            <form id="google-order-form" action="https://docs.google.com/forms/d/e/YOUR_GOOGLE_FORM_ID/formResponse" method="POST" target="hidden_iframe" onsubmit="submitted=true;">
+                
+                <div class="form-group">
+                    <label for="name">আপনার নাম *</label>
+                    <!-- entry.XXXXX এর জায়গায় Google Form-এর Entry ID বসান -->
+                    <input type="text" name="entry.11111111" id="name" placeholder="আপনার পুরো নাম লিখুন" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">মোবাইল নম্বর *</label>
+                    <input type="tel" name="entry.22222222" id="phone" placeholder="01XXXXXXXXX" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="book_name">বইয়ের নাম *</label>
+                    <input type="text" name="entry.33333333" id="book_name" placeholder="যে বইটি নিতে চান" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="address">পূর্ণাঙ্গ ঠিকানা *</label>
+                    <textarea name="entry.44444444" id="address" rows="3" placeholder="জেলা, থানা ও এলাকার নামসহ লিখুন" required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-submit">অর্ডার নিশ্চিত করুন</button>
+            </form>
+
+            <!-- ফর্ম সাবমিট হলে পেজ রিলোড না হওয়ার জন্য হিডেন আইফ্রেম -->
+            <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted) { showConfirmation(); }"></iframe>
+            
+            <div id="success-message" class="success-msg" style="display:none;">
+                🎉 আপনার অর্ডারটি সফলভাবে জমা হয়েছে! আমরা শীঘ্রই আপনার সাথে যোগাযোগ করব।
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 বইঘর। সর্বস্বত্ব সংরক্ষিত।</p>
+        </div>
+    </footer>
+
     <script src="script.js"></script>
 </body>
 </html>
